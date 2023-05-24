@@ -31,12 +31,12 @@ from tensorflow.keras.layers import (Flatten,
 # load images from file
 def load_image():
     # defining filepaths as they appear on UCloud
-    img_dir = os.path.join('..','..','..','431824')
-    metadata = os.path.join('..','..','..','431824','images','metadata')
+    #img_dir = os.path.join('..','..','..','431824')
+    #metadata = os.path.join('..','..','..','431824','images','metadata')
 
-    train_data_dir = os.path.join(img_dir,'images','train')
-    test_data_dir = os.path.join(img_dir,'images','test')
-    val_data_dir = os.path.join(img_dir,'images','val')
+    # defining filepaths for download to data folder
+    img_dir = os.path.join('..','data','dataset')
+    metadata = os.path.join('..','data','dataset','images','metadata')
 
     # reading metadata from .json to dataframes
     train_df = pd.read_json(os.path.join(metadata,'train_data.json'), lines=True)
@@ -147,7 +147,7 @@ def define_model():
 # training model within set parameters
 def train_model(model, train_images, val_images):
     # outlining requirements for stopping the model early if stops improving (by validation loss per default)
-    early_stopping = EarlyStopping(patience=5, restore_best_weights=True)
+    early_stopping = EarlyStopping(patience=3, restore_best_weights=True)
     early_stopping = [early_stopping] # making list for callbacks
 
     H = model.fit(train_images,
